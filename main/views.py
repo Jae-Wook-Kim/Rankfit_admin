@@ -33,3 +33,11 @@ class Error(APIView):
 class Blank(APIView):
     def get(self, request):
         return render(request, "blank.html")
+
+class Chart(APIView):
+    def get(self, request):
+        return render(request, "charts.html")
+    
+class Table(APIView):
+    def get(self, request):
+        return render(request, "tables.html")
