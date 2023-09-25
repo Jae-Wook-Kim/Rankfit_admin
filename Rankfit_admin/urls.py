@@ -19,11 +19,11 @@ from django.contrib import admin
 from django.urls import path
 
 from . import settings
-from main.views import Main
+from main.views import Index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', Main.as_view()),
+    path('', Index.as_view()),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_URL)
