@@ -19,11 +19,13 @@ from django.contrib import admin
 from django.urls import path
 
 from . import settings
-from main.views import Index
+from main.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', Index.as_view()),
+    path('', Index.as_view(), name="index"),
+    path('login/', Login.as_view(), name="login"),
+    path('signup/', Register.as_view(), name="signup"),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_URL)
