@@ -358,16 +358,23 @@
                                     Logout
                                 </a> -->
 
+                                {% if request.user.is_authenticated %}
+                                <a class="dropdown-item" href="{% url 'common:logout' %}">
+                                    <i class="fas fa-login fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                                </a>
+                                {% else %}
                                 <!-- Not User -->
-                                <a class="dropdown-item" href="{% url 'login' %}">
+                                <a class="dropdown-item" href="{% url 'common:login' %}">
                                     <i class="fas fa-login fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Login
                                 </a>
-                                <a class="dropdown-item" href="{% url 'signup' %}">
+                                <a class="dropdown-item" href="{% url 'common:signup' %}">
                                     <i class="fas fa-register fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Register
                                 </a>
-
+                                {% endif %}
                             </div>
                         </li>
 

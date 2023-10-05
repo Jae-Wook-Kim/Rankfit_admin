@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from . import settings
 from main.views import *
@@ -24,8 +24,9 @@ from main.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Index.as_view(), name="index"),
-    path('login/', Login.as_view(), name="login"),
-    path('signup/', Register.as_view(), name="signup"),
+    path('common/', include('common.urls')),
+    # path('login/', Login.as_view(), name="login"),
+    # path('signup/', Register.as_view(), name="signup"),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_URL)

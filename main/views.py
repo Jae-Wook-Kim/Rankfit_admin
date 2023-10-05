@@ -14,13 +14,13 @@ class Card(APIView):
     def get(self, request):
         return render(request, "cards.html")
 
-class Login(APIView):
-    def get(self, request):
-        return render(request, "login.html")
+# class Login(APIView):
+#     def get(self, request):
+#         return render(request, "login.html")
     
-class Register(APIView):
-    def get(self, request):
-        return render(request, "register.html")
+# class Register(APIView):
+#     def get(self, request):
+#         return render(request, "register.html")
     
 class Forgot_Password(APIView):
     def get(self, request):
