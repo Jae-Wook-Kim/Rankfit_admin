@@ -4,6 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
+from .models import User
 
 # Create your views here.
 def signup(request):
@@ -36,3 +37,8 @@ def login(request):
 def logout(request):
     auth_logout(request)
     return redirect('/')
+
+def user_list(request):
+    users=User.objects.using('mysql_db').all()
+    return render(request, '../templates/usertables.html', {'users':users})
+    # return render(request, '../templates/test.html', {'users':users})

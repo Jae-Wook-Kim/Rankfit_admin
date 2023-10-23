@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h2>User List</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Nickname</th>
+            </tr>
+            {% for user in users %}
+            <tr>
+                <td>{{user.userID}}</td>
+                <td>{{user.userEmail}}</td>
+                <td>{{user.userNickname}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>

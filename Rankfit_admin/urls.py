@@ -23,8 +23,14 @@ from main.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', Index.as_view(), name="index"),
+    
+    # path('', Index.as_view(), name="index"),
+    path('', include('main.urls')),
+
     path('common/', include('common.urls')),
+
+    # path('notify/', Notify.as_view(), name="notify"),
+    # path('delete/<int:notify_id>/', Delete_notify.as_view(), name="notify_delete"),
     # path('login/', Login.as_view(), name="login"),
     # path('signup/', Register.as_view(), name="signup"),
 ]
