@@ -7,6 +7,7 @@ from django.views.decorators.http import require_POST
 from .models import User
 
 # Create your views here.
+
 def signup(request):
     if request.method == 'POST':
         print("Success!!")
@@ -41,4 +42,3 @@ def logout(request):
 def user_list(request):
     users=User.objects.using('mysql_db').all()
     return render(request, '../templates/usertables.html', {'users':users})
-    # return render(request, '../templates/test.html', {'users':users})

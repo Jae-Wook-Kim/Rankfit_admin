@@ -7,8 +7,12 @@ app_name = "main"
 
 urlpatterns = [
     path('', views.index, name="index"),
+
     path('notify/', views.notify, name="notify"),
-    path('delete/<int:index>/', views.delete_notification, name="delete_notification"),
+    path('notify/delete/<int:index>/', views.delete_notification, name="delete_notification"),
+
+    path('notice/', views.notice, name="notice"),
+    path('notice/delete/<int:index>/', views.delete_notice, name="delete_notice"),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_URL)
