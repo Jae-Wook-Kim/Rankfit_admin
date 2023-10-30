@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from rest_framework.views import APIView
 from common.models import User
 from .models import Notification, Notice
+from .forms import NoticeForm
+from django.utils import timezone
 
 def index(request):
     users = User.objects.using('mysql_db').all()
@@ -30,6 +31,21 @@ def delete_notice(request, index):
         notice = Notice.objects.using('mysql_db').get(index=index)
         notice.delete()
         return redirect("main:notice")
+
+def new_notice(request):
+    if request.method == 'POST':
+        print('IS POST!!!')
+        form = NoticeForm(request.POST)
+        if form.is_valid():
+            notice = form.save(commit=False)
+            notice.register_day = timezone.now().date()
+            notice.save()
+            return redirect('main:notice')
+        else:
+            print(form.errors)
+    else:
+        form = NoticeForm()
+    return render(request, 'notice_edit.html', {'form':form})
 
     
 def button(request):

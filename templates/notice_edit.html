@@ -382,65 +382,28 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Notice Tables</h1>
+                    <h1 class="h3 mb-2 text-gray-800">New Notice</h1>
 
-                    <!-- <a href="{% url 'main:new_notice' %}" class="btn btn-secondary btn-icon-split">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-arrow-right"></i>
-                        </span>
-                        <span class="text">New Notice</span>
-                    </a> -->
-
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <!-- <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                        </div> -->
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Index</th>
-                                            <th>Title</th>
-                                            <th>Content</th>
-                                            <th>Register Day</th>
-                                            <th>Button</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for note in notice %}
-                                        <tr>
-                                            <td>{{note.index}}</td>
-                                            <td>{{note.title}}</td>
-                                            <td>{{note.content}}</td>
-                                            <td>{{note.register_day}}</td>
-                                            <td>
-                                                <form method="POST" action="{% url 'main:delete_notice' note.index %}">
-                                                    {% csrf_token %}
-                                                    <button type="submit" class="btn btn-danger btn-circle btn-sm">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                                <!-- <a href="#" class="btn btn-danger btn-icon-split">
-                                                    <span class="text">Delete</span>
-                                                </a> -->
-                                                <!-- <input type="submit" value="Delete" class="delete-button"> -->
-                                            </td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
+                    <form id="Notice-Form" method="POST" class="post-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="titleField">Title</label>
+                            <input name="title" type="text" class="form-control" id="titleField" placeholder="Enter title" value="{{ form.title.value|default_if_none:'' }}">
                         </div>
-                    </div>
-                    <a href="{% url 'main:new_notice' %}" class="btn btn-secondary btn-icon-split">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-arrow-right"></i>
-                        </span>
-                        <span class="text">New Notice</span>
-                    </a>
+                        <div class="form-group">
+                            <label for="contentField">Content</label>
+                            <textarea name="content" class="form-control" id="contentField" rows="3">{{ form.content.value|default_if_none:'' }}</textarea>
+                        </div>
 
+                        <!-- <button type="submit" class="save btn btn-default">Save</button> -->
+                        
+                        <a class="btn btn-success btn-icon-split" onclick="document.getElementById('Notice-Form').submit();">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="text">Save</span>
+                        </a>
+                    </form>
                 </div>
                 <!-- /.container-fluid -->
 

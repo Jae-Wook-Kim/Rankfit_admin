@@ -13,6 +13,7 @@ urlpatterns = [
 
     path('notice/', views.notice, name="notice"),
     path('notice/delete/<int:index>/', views.delete_notice, name="delete_notice"),
+    path('notice/new', views.new_notice, name="new_notice"),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_URL)
