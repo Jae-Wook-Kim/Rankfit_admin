@@ -10,7 +10,13 @@ def index(request):
 
     notify = Notification.objects.using('mysql_db').all()
     notify_count = notify.count()
+    if request.user.is_authenticated:
+        unread_notify_count = 0
+        # unread_notify_count = Notification.objects.exclude(notify_read__user=request.user).count()
+    else:
+        unread_notify_count = 0
     return render(request, 'index.html', {'user_count':user_count, 'notify_count':notify_count})
+    # return render(request, 'index.html', {'user_count':user_count, 'notify_count':notify_count, 'unread_notify_count': unread_notify_count})
 
 def notify(request):
     notify = Notification.objects.using('mysql_db').all()

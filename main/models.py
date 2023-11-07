@@ -1,5 +1,5 @@
 from django.db import models
-from common.models import User
+from common.models import User, CustomUser
 
 class Notification(models.Model):
     Index = models.AutoField(primary_key=True)
@@ -12,6 +12,11 @@ class Notification(models.Model):
     class Meta:
         db_table = 'notify'
         managed = False
+
+class NotifyRead(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    notify = models.ForeignKey(Notification, on_delete=models.CASCADE)
+    read_at = models.DateTimeField(auto_now_add=True)
 
 class Notice(models.Model):
     index = models.AutoField(primary_key=True)
