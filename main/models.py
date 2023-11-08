@@ -13,10 +13,10 @@ class Notification(models.Model):
         db_table = 'notify'
         managed = False
 
-class NotifyRead(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    notify = models.ForeignKey(Notification, on_delete=models.CASCADE)
-    read_at = models.DateTimeField(auto_now_add=True)
+# class NotifyRead(models.Model):
+#     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+#     notify = models.ForeignKey(Notification, on_delete=models.CASCADE)
+#     read_at = models.DateTimeField(auto_now_add=True)
 
 class Notice(models.Model):
     index = models.AutoField(primary_key=True)

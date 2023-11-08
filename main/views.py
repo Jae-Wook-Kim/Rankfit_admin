@@ -3,6 +3,8 @@ from common.models import User
 from .models import Notification, Notice
 from .forms import NoticeForm
 from django.utils import timezone
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 
 def index(request):
     users = User.objects.using('mysql_db').all()
@@ -11,12 +13,23 @@ def index(request):
     notify = Notification.objects.using('mysql_db').all()
     notify_count = notify.count()
     if request.user.is_authenticated:
-        unread_notify_count = 0
+        # unread_notify_count = 0
         # unread_notify_count = Notification.objects.exclude(notify_read__user=request.user).count()
+        unread_notify_count = Notification.objects.filter(date__gt=request.user.last_login.date()).count()
+
+        # send a notification
+        channel_layer = get_channel_layer()
+        async_to_sync(channel_layer.group_send)(
+            'notifications',
+            {
+                'type': 'notify',
+                'text': 'A new report has been added.',
+            }
+        )
     else:
         unread_notify_count = 0
-    return render(request, 'index.html', {'user_count':user_count, 'notify_count':notify_count})
-    # return render(request, 'index.html', {'user_count':user_count, 'notify_count':notify_count, 'unread_notify_count': unread_notify_count})
+    # return render(request, 'index.html', {'user_count':user_count, 'notify_count':notify_count})
+    return render(request, 'index.html', {'user_count':user_count, 'notify_count':notify_count, 'unread_notify_count': unread_notify_count})
 
 def notify(request):
     notify = Notification.objects.using('mysql_db').all()

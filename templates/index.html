@@ -21,6 +21,30 @@
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
 
+    <!-- Channel Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create a WebSocket connection
+            var socket = new WebSocket('ws://' + window.location.host + '/ws/notifications/');
+
+            // Connection opened
+            socket.addEventListener('open', function(event){
+                console.log('WebSocket connection opened');
+            });
+            // Listen for messages
+            socket.addEventListener('message', function(event){
+                var data = JSON.parse(event.data);
+                console.log('Notification received: ', data.message);
+
+                // Update the notification icon or display the notification
+            });
+            // Connection closed
+            socket.addEventListener('close', function(event){
+                console.log('WebSocket connection closed');
+            });
+        })
+    </script>
+
 </head>
 
 <body id="page-top">
@@ -228,8 +252,8 @@
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
                                 {% if request.user.is_authenticated %}
-                                <span class="badge badge-danger badge-counter"></span>
-                                <!-- <span class="badge badge-danger badge-counter">{{ unread_notify_count }}</span> -->
+                                <!-- <span class="badge badge-danger badge-counter"></span> -->
+                                <span class="badge badge-danger badge-counter">{{ unread_notify_count }}</span>
                                 {% else %}
                                 <span class="badge badge-danger badge-counter"></span>
                                 {% endif %}
