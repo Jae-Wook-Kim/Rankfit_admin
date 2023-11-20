@@ -23,26 +23,45 @@
 
     <!-- Channel Script -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Create a WebSocket connection
-            var socket = new WebSocket('ws://' + window.location.host + '/ws/notifications/');
+        var socket = new WebSocket('ws://localhost:8000/ws/notifications/');
 
-            // Connection opened
-            socket.addEventListener('open', function(event){
-                console.log('WebSocket connection opened');
-            });
-            // Listen for messages
-            socket.addEventListener('message', function(event){
-                var data = JSON.parse(event.data);
-                console.log('Notification received: ', data.message);
+        socket.addEventListener('message', function(event){
+            console.log("Message received: ", event.data);
+            document.getElementById('notificationCount').textContent = event.data;
+        });
 
-                // Update the notification icon or display the notification
-            });
-            // Connection closed
-            socket.addEventListener('close', function(event){
-                console.log('WebSocket connection closed');
-            });
-        })
+        socket.addEventListener('open', function(event){
+            console.log('WebSocket connection opened');
+        });
+
+        socket.addEventListener('error', function(event){
+            console.log('WebSocket error: ', event);
+        });
+
+        socket.addEventListener('close', function(event){
+            console.log('WebSocket connection closed');
+        });
+        
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     // Create a WebSocket connection
+        //     var socket = new WebSocket('ws://' + window.location.host + '/ws/notifications/');
+
+        //     // Connection opened
+        //     socket.addEventListener('open', function(event){
+        //         console.log('WebSocket connection opened');
+        //     });
+        //     // Listen for messages
+        //     socket.addEventListener('message', function(event){
+        //         var data = JSON.parse(event.data);
+        //         console.log('Notification received: ', data.message);
+
+        //         // Update the notification icon or display the notification
+        //     });
+        //     // Connection closed
+        //     socket.addEventListener('close', function(event){
+        //         console.log('WebSocket connection closed');
+        //     });
+        // })
     </script>
 
 </head>
@@ -252,7 +271,7 @@
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
                                 {% if request.user.is_authenticated %}
-                                <!-- <span class="badge badge-danger badge-counter"></span> -->
+                                <!-- <span class="badge badge-danger badge-counter" id="notificationCount"></span> -->
                                 <span class="badge badge-danger badge-counter">{{ unread_notify_count }}</span>
                                 {% else %}
                                 <span class="badge badge-danger badge-counter"></span>
@@ -792,22 +811,24 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="static/vendor/jquery/jquery.min.js"></script>
-    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="static/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="static/js/sb-admin-2.min.js"></script>
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
 
     <!-- Page level plugins -->
-    <script src="static/vendor/chart.js/Chart.min.js"></script>
+    <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
 
     <!-- Page level custom scripts -->
-    <script src="static/js/demo/chart-area-demo.js"></script>
-    <script src="static/js/demo/chart-pie-demo.js"></script>
+    <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+    <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
 
 </body>
 
 </html>
+
+<!-- "{% static 'vendor/fontawesome-free/css/all.min.css' %}" -->
